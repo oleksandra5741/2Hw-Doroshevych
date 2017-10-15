@@ -1,0 +1,29 @@
+.footer {
+   
+    bottom: -120px;
+    text-align: center;
+    color: grey;
+    background-color: rgba(0,0,0,0);
+    
+}
+
+.icon {
+    position: fixed;
+    bottom: -10px;
+    width: 120px;
+    height: 140px;
+    background-color: rgba(0,0,0,0);
+    left: 9px;
+  
+   border-right:60px solid #ef8c00;
+   border-top:20px solid transparent;
+   border-left:60px solid #ef8c00;
+}
+
+.icon_text {
+    position: fixed;
+    font-size: 16pt;
+    left: 30px;
+    bottom: -10px;
+    color: antiquewhite;
+}

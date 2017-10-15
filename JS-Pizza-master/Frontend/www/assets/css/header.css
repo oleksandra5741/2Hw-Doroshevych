@@ -1,0 +1,34 @@
+.header {
+    position: fixed;
+    top: 0px;
+    right: 18%;
+    padding-right: 350px;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    color: gainsboro;
+    background-color: rgba(26, 26, 26, 0.9);
+     z-index: 10;
+}
+
+.icon_top {
+    position: fixed;
+    top: 0px;
+    width: 120px;
+    height: 100px;
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    left: 9px;
+   border-right:60px solid #ef8c00;
+   border-bottom:20px solid transparent;
+   border-left:60px solid #ef8c00;
+   
+}
+
+.icon_text_top{
+    position: fixed;
+    top: 10px;
+    color: snow;
+    font-size: 16pt;
+    left: 40px;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Pizza</title>
+
+    <!-- Bootsrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- LESS основний файл -->
+  <!--  <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" /> -->
+    <link rel="stylesheet" type="text/css" href="assets/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/header.css" />
+     <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+    <!-- LESS JavaScript компілятор -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
+
+</head>
+<body>
+    <div class="header navbar navbar-fixed-top navbar-absolute col-sm-8">
+        <div>
+            <p class="icon_top"></p>
+            <p class="icon_text_top">
+                 PIZZA<br>KMA 
+            </p>
+        </div>
+       
+       8-800-555-35-35
+        
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+   
+<div id="cart" class="cart navbar navbar-fixed-right navbar-absolute"></div>
+    
+
+<div class="container pizzas">
+    <div class="menu">
+        <p class="lbl_filter">
+            Усі піци    
+        </p>
+        <p>
+            <button type="button" class="btn_filter">Усі</button>
+            <button type="button" class="btn_filter">Мясні</button>
+            <button type="button" class="btn_filter">З ананасами</button>
+            <button type="button" class="btn_filter">З грибами</button>
+            <button type="button" class="btn_filter">З морепродуктами</button>
+            <button type="button" class="btn_filter">Вега</button>
+        </p>
+    </div>
+
+    <div class="row" id="pizza_list">
+        <div class="col-sm-4 col-md-4">
+            <div class="thumbnail pizza-card">
+                <img src="assets/images/pizza_1.jpg">
+
+                <div class="caption"><h3>Thumbnail label</h3>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p>
+                        <a href="#" class="btn btn-primary">Button 2</a>
+                        <a href="#" class="btn btn-default">Button 1</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail pizza-card">
+                <img src="assets/images/pizza_2.jpg">
+
+                <div class="caption"><h3>Thumbnail label</h3>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p>
+                        <a href="#" class="btn btn-primary">Button 3</a>
+                        <a href="#" class="btn btn-default">Button 4</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail pizza-card">
+                <img src="assets/images/pizza_3.jpg">
+
+                <div class="caption"><h3>Thumbnail label</h3>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p>
+                        <a href="#" class="btn btn-primary">Button 5</a>
+                        <a href="#" class="btn btn-default">Button 6</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div class="container footer col-sm-9">
+        <div >
+            <p class="icon"></p>
+            <p class="icon_text">ЦЬОГО<br>ТИЖНЯ<br>НА ВСЕ<br>-20% </p>
+        </div>
+        <p>
+            Pizza.22 - практичний проект в межах курсу JavaScript в Києво-Могилянській Академії
+            <br><br>
+            Доставка піци не здійснюється
+        </p>
+    </div>
+
+<!-- jQuery JavaScript -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+
+<!--Bootsrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!--Own JavaScript -->
+<script type="text/javascript"  src="assets/js/main.js"> </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+.cart {
+    height: 100%;
+   
+    background-color: snow;
+    position: fixed!important;
+    right: 0px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    min-width: 330px;
+    width: 330px;
+   z-index: 100;
+     position: absolute;
+}
+
+.pizzas {
+    
+    position: relative;
+    top:100px;
+    left: 0px;
+    padding-right: 300px;
+    padding-bottom: 100px;
+    
+}
+
+.menu{
+   
+    text-align: center;
+   
+}
+
+.btn_filter {
+    border: none;
+    background-color: rgba(131, 131, 131, 0);
+    padding: 15px;
+    border-radius: 4px;
+    cursor:pointer;
+    
+}
+
+.btn_filter:hover{
+    background-color: rgba(167, 196, 201, 0.5);
+}
+
+
+.lbl_filter {
+    font-size: 24pt;
+    color: black;
+    
+}
+
+
+
+.title {
+    font-size: 16pt;
+    font-family: serif;
+    color: coral;
+}
+
+.plus {
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.minus {
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.remove {
+    border-radius: 50%;
+    color: orange;
+    background-color: bisque;
+    margin-left: 30px;
+}
+
+.pizza_icon {
+    max-height: 96px;
+    max-width: 96px;
+    position: absolute;
+    right: -48px;
+    top: 15px;
+    border-radius: 50%;
+}
+
+.order_pizza_item {
+    height: 120px;
+    padding: 20px 61px 10px 24px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    position: relative;
+}
