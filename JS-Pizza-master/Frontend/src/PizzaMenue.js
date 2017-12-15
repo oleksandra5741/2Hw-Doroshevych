@@ -1,47 +1,46 @@
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
+var Pizza_List = [];
 var API = require('../API');
-var PIZZAL = [];
-var $COUNTPIZZ = $("#pizza-num");
-var $VARPIZ = $(".pizza-vars");
-var $PIZZAL = $("#PIZZAL");
+var $pizza_list = $("#pizza_list");
+var $pizzacount = $("#pizza-num");
+var $pizzavar = $(".pizza-vars");
 var inType = "";
-$VARPIZ.find("a").click(function(){
-    console.log(this.id + "   " + this.innerHTML);
-    inType = this.innerHTML;
-    if(inType === 'Усі'){
-        SHOWLIST(PIZZAL);
-    }else{
-        filterPizza();}});
-function SHOWLIST(list) {
-    $PIZZAL.html("");
-    $COUNTPIZZ.find(".pizza-count").text(list.length);
-    function ONEPIZZASHOW(pizza) {
-        var HTML = Templates.PizzaMenu_OneItem({pizza: pizza});
-        var $node = $(HTML);
+	$pizzavar.find("a").click(function(){
+	 console.log(this.id + "   " + this.innerHTML);
+	inType = this.innerHTML;
+		if(inType === 'Усі'){
+			showPizzaList(Pizza_List);
+		}else{
+		filterPizza();}});
+function showPizzaList(list) {
+    $pizza_list.html("");
+ 	$pizzacount.find(".pizza-count").text(list.length);
+    function showOnePizza(pizza) {
+        var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
+        var $node = $(html_code);
         $node.find(".buy-big").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);});
         $node.find(".buy-small").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);});
-        $PIZZAL.append($node);}
-    list.forEach(ONEPIZZASHOW);}
+        $pizza_list.append($node);}
+    list.forEach(showOnePizza);}
+function filterPizza(filter) {
+    var pizza_shown = [];
+	Pizza_List.filter(function(obj){
+		if(obj.type === inType){
+			pizza_shown.push(obj);}
+		else{
+			return 0;}})
+console.log(pizza_shown.length);
+    showPizzaList(pizza_shown);}
 function initialiseMenu() {
     API.getPizzaList(function(err, data){
-        if(err){
-            PIZZAL = [];}
-        else{
-            PIZZAL = data;
-            console.log("PIZZAL = ", data);}
-        SHOWLIST(PIZZAL);});}
-function filterPizza(filter) {
-    var SHOWNPIZ = [];
-    PIZZAL.filter(function(obj){
-        if(obj.type === inType){
-            SHOWNPIZ.push(obj);}
-        else{
-            return 0;}})
-    console.log(SHOWNPIZ.length);
-    SHOWLIST(SHOWNPIZ);}
-
+		if(err){
+			Pizza_List = [];}
+		else{
+			Pizza_List = data;
+			console.log("Pizza_List = ", data);}
+		showPizzaList(Pizza_List);});}
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
