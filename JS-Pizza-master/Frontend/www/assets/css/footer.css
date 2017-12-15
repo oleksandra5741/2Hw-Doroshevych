@@ -1,0 +1,22 @@
+.footer {
+    bottom: -120px;
+    text-align: center;
+    color: grey;
+    background-color: rgba(0,0,0,0);  }
+.icon{
+    position: fixed;
+    bottom: -10px;
+    border-right:60px solid #ef8c00;
+    border-top:20px solid transparent;
+    width: 120px;
+    height: 140px;
+    background-color: rgba(0,0,0,0);
+    left: 9px;
+   border-left:60px solid #ef8c00;  }
+.icon_text {
+    position: fixed;
+    bottom: -10px;
+    color: antiquewhite;
+    font-size: 16pt;
+    left: 30px;
+}
