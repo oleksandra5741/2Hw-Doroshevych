@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet/less" type="text/css" href="assets/css/site.css" />
+    <link rel="stylesheet/less" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+    <link rel="stylesheet/less" type="text/css" href="assets/less/main-order.less" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+    <script type="text/javascript"  src="assets/js/main.js"> </script>
+    <script type="text/javascript" src="script.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-2.1.4.js"
+        integrity="sha256-siFczlgw4jULnUICcdm9gjQPZkw/YPDqhQ9+nAOScE4="
+        crossorigin="anonymous"></script>
+</head>
+<body  data-page="order">
+    <div class="header navbar navbar-fixed-top navbar-absolute col-sm-8">
+        <div>
+            <p class="icon_top"></p>
+            <p class="icon_text_top">
+                PIZZA<br>KMA
+            </p>
+        </div>
+        044-182-36548
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Увійти </a></li>
+        </ul>
+    </div>
+<div class="main-container">
+    <div class="col-xs-9 col-sm-9 col-md-9 order-panel">
+        <div class="left-panel">
+            <div class="contact-form-1">
+                <div class="form-description-1">
+                    <h2>1. Контактні дані</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 summary">
+                        <form class="form-horizontal" id="registration-form" novalidate="novalidate">
+                            <div class="form-group name-group" id="rule1">
+                                <label class="col-sm-2 control-label">Ім’я</label>
+                                <input class="col-sm-10 form-control" type="text" id="inputName" name="inputName" placeholder="Ім’я Прізвище">
+                                <span class="name-help-block" id="hid1">
+					Введіть тільки власне ім’я
+				</span>
+                            </div>
+                            <div class="form-group phone-group" id="rule2">
+                                <label class="col-sm-2 control-label">Телефон</label>
+                                <input  class="form-control" type="text"  id="inputPhone" name="inputPhone" placeholder="+380994010999">
+                                <span class="phone-help-block" id="hid2">
+                  Введіть номер телефону починаючи з 0
+              </span>
+                            </div>
+                            <div class="form-group address-group" id="rule3">
+                                <label class="col-sm-2 control-label">Адреса</label>
+                                <input class="form-control" type="text" id="inputAdress" name="inputAdress" placeholder="вул. М. Цвєваєвой, 14-б">
+                                <span class="address-help-block" id="hid3">
+                   Введіть адресу доставки
+			</span>
+                            </div></form></div>
+                    <div class="col-md-5 summary-right">
+                        <div class="col-md-12 order-info">
+                            <h4>Інформація про замовлення</h4>
+                            <p class="order-summery-time">
+                                <b>Приблизний час доставки:</b> <b id="sumtime">--:-- хв</b>
+                            </p>
+                            <p class="order-summery-adress">
+                                <b>Адреса доставки:</b><b id="sumadress"> невідома</b>
+                            </p></div></div></div></div>
+            <button  class="postButton btn btn-warning btn-md" type="button">Далі</button>
+            <div class="google-maps" id="googleMap" style="height: 400px; width: 100%; margin: 0px; padding: 0px;"></div>
+
+        </div>
+    </div>
+</div>
+<!-- Google Maps -->
+<script	     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB_ZkzVQ8m7QJElVcmN9jtdK_WtqcUvGAc&libraries=places"></script>
+<!-- Autocomplete input Adress -->
+<script>
+    var autocomplete = new google.maps.places.Autocomplete($("#inputAdress")[0], {});
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var PLACE = autocomplete.getPlace();
+        console.log(PLACE);});
+</script>
+<script>
+    var DIRECTIONS;
+    var CADDRESS = "";
+    var NADDRES = "";
+    var MAPA;
+    var MARK;
+    var HLAT;
+    var HLNG;
+    var ARRAY = [];
+    var POINTP;
+    var COORD;
+    function WorkwithMap(){
+        $('.address-group').keydown(function(e) {
+            if(e.which == 13) {
+                var inAd= $('#inputAdress').val();
+                console.log(inAd);
+                inAdressFilled();}});
+        DIRECTIONS = new google.maps.DirectionsRenderer();
+        var POINT = new	google.maps.LatLng(50.463770000000004,30.519050000000004);
+        var MAPPR = {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center:	POINT,
+            zoom: 16};
+        var HTML =	document.getElementById("googleMap");
+        MAPA	=	new	google.maps.Map(HTML, MAPPR); //Картастворена і показана
+        geocodeLatLng(POINT,	function(err,	adress){
+            CADDRESS = adress;
+            console.log(CADDRESS);});
+        var MARKER = new google.maps.Marker({
+            position: POINT,
+            label:null,
+            MAPA: MAPA,
+            icon: 'assets/images/map-icon.png'});
+        MARKER.setMap(MAPA);
+        google.maps.event.addListener(MAPA,	'click',function(me){
+            console.log(ARRAY.length);
+            if(ARRAY.length == 1){
+                ARRAY.forEach(function(m){
+                    m.setMap(null);});
+                ARRAY = [];}
+           COORD	=	me.latLng;
+            DIRECTIONS.setMap(MAPA);
+            DIRECTIONS.setOptions( { suppressMarkers: true } );
+            geocodeLatLng(COORD,	function(err,	adress){
+                NADDRESN = adress;
+                calculateAndDisplayRoute(NADDRES,function(err, adress){
+                    POINTP = {lat: HLAT, lng: HLNG};
+                    MARK = new google.maps.Marker({
+                        position: POINTP,
+                        label:null,
+                        MAPA: MAPA,
+                        icon: 'assets/images/home-icon.png',
+                        zIndex: 10000});
+                    ARRAY.push(MARK);
+                    ARRAY[ARRAY.indexOf(MARK)].setMap(MAPA);
+                    console.log(HLAT,HLNG);});});});}
+    function geocodeLatLng(latlng,	callback){
+        var CODGEO	=	new	google.maps.Geocoder();
+        CODGEO.geocode({'location':	latlng},	function(results,	status)	{
+            if	(status	===	google.maps.GeocoderStatus.OK&&	results[1])	{
+                var adress =	results[1].formatted_address;
+                callback(null,	adress);
+            } else {
+                callback(new Error("NO ADRESS"));}});}
+    function geocodeAddress(address,	callback)	{
+        var CODGEO	=	new	google.maps.Geocoder();
+        CODGEO.geocode({'address':	address},	function(results,	status)	{
+            if	(status	===	google.maps.GeocoderStatus.OK&&	results[0])	{
+                var COORDINATES	=	results[0].geometry.location;
+                callback(null,	coord);
+            }	else	{
+                callback(new	Error("NO ADRESS"));}});}
+    function inAdressFilled(){
+        console.log(ARRAY.length);
+        if(ARRAY.length == 1){
+            ARRAY.forEach(function(m){
+                m.setMap(null);});
+            ARRAY = [];}
+        NADDRES = $('#inputAdress').val();
+        DIRECTIONS.setMap(MAPA);
+        DIRECTIONS.setOptions( { suppressMarkers: true } );
+        geocodeAddress(NADDRES,	function(err,	COORDINATES){
+            calculateAndDisplayRoute(NADDRES,function(err, adress){
+                COORDINATES = {lat: HLAT, lng: HLNG};
+                MARK = new google.maps.Marker({
+                    position: COORDINATES,
+                    label:null,
+                    MAPA: MAPA,
+                    icon: 'assets/images/home-icon.png',
+                    zIndex: 10000});
+                ARRAY.push(MARK);
+                ARRAY[ARRAY.indexOf(MARK)].setMap(MAPA);
+                console.log(HLAT,HLNG);});});}
+    google.maps.event.addDomListener(window,'load',	WorkwithMap);
+</script>
+</body>
+</html>
+
