@@ -1,0 +1,7 @@
+.top-panel{
+    nav{
+    height: @heighttop;
+    background-color: @mainColor;
+    color: @someColor;
+    }  
+}
