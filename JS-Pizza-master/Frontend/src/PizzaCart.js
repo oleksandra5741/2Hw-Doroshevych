@@ -1,164 +1,144 @@
 var Templates = require('../Templates');
 var API = require('../API');
-//Перелік розмірів піци
-var PizzaSize = {
-    Big: "big_size",
-    Small: "small_size"};
-var Cart = [];
-var localstorage	=	require('../LocalStorage');
-var quan = 0;
-var sum = 0;
+var localstorage=require('../LocalStorage');
+var CART = [];
+var QUANTITY = 0;
+var SUMMARYMARY = 0;
+var SIZE = {
+    Big: "BIG",
+    Small: "SMALL"};
 var def_price = [];
-//Змінна в якій зберігаються перелік піц в кошику
-//HTML едемент куди будуть додаватися піци
-var $cart = $("#cart");
+var $CART = $("#CART");
 var $platform = $("#platform");
-function addToCart(pizza, size) {
-    //Додавання однієї піци в кошик покупок
-    quan++;
+function ADDITEMS(pizza, size) {
+    QUANTITY++;
 	 var j =0;
-	var check = true;
-	//Приклад реалізації, можна робити будь-яким іншим способом
-	for(var i=0; i<Cart.length; ){
-		if(Cart[i].pizza.title === pizza.title && Cart[i].size === size){
+	var CHEKIT = true;
+	for(var i=0; i<CART.length; ){
+		if(CART[i].pizza.title === pizza.title && CART[i].size === size){
 			j = i;
-			check = false;
+			CHEKIT = false;
 			break;
 		}else{
-			check = true;}
+			CHEKIT = true;}
 		i++;}
-	console.log(check + "\n"+  pizza.title + "\n" + size);
-	
-	if(check == false){
-		var st = (Cart[j].size === "small_size") ? true : false;
+	console.log(CHEKIT + "\n"+  pizza.title + "\n" + size);
+	if(CHEKIT == false){
+		var st = (CART[j].size === "Small") ? true : false;
 	if(st == true){
-		Cart[j].pizza.small_size.price = Cart[j].pizza.small_size.price + def_price[j];
+		CART[j].pizza.Small.price = CART[j].pizza.Small.price + def_price[j];
 	}else{
-		Cart[j].pizza.big_size.price = Cart[j].pizza.big_size.price + def_price[j];
-	}
-		sum = sum + def_price[j] ;
-		Cart[j].quantity = Cart[j].quantity + 1; 
-		console.log(def_price[j]);
-	}
-	if(check == true){
-    Cart.push({
+		CART[j].pizza.Big.price = CART[j].pizza.Big.price + def_price[j];}
+		SUMMARYMARY = SUMMARYMARY + def_price[j] ;
+		CART[j].quantity = CART[j].quantity + 1; 
+		console.log(def_price[j]);}
+	if(CHEKIT==true){
+    CART.push({
         pizza: pizza,
         size: size,
-        quantity: 1
-    });
+        quantity: 1});
 	def_price.push(pizza[size].price);
-		sum = sum + pizza[size].price;}
-    //Оновити вміст кошика на сторінці
-    updateCart();}
-function getSum() {
-    return sum;}
-function removeFromCart(cart_item) {
-    //Видалити піцу з кошика
-    //TODO: треба зробити
-	var a = Cart.indexOf(cart_item);
-	def_price.splice(a, 1);   
-	Cart.splice(a, 1);
-	localstorage.set("cart",	Cart);
-    //Після видалення оновити відображення
-    updateCart();}
-function initialiseCart() {
-	var c = localstorage.get("cart");
+		SUMMARYMARY = SUMMARYMARY + pizza[size].price;}
+   UPDATE();}
+function getSUMMARY(){
+    return SUMMARY;}
+function INITIALIZE() {
+	var c = localstorage.get("CART");
 	var p = localstorage.get("price");
-	var q = localstorage.get("quan");
-	var s = localstorage.get("sum");
-    if(localstorage.get("cart") != undefined){
-	Cart = c;
+	var q = localstorage.get("QUANTITY");
+	var s = localstorage.get("SUMMARYMARY");
+    if(localstorage.get("CART") != undefined){
+	CART = c;
 	def_price = p;
-	quan = q;
-	sum = s;}
-    updateCart();}
-function getPizzaInCart() {
-    //Повертає піци які зберігаються в кошику
-    return Cart;}
-function updateCart() {
-    //Функція викликається при зміні вмісту кошика
-    //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
-	localstorage.set("cart", Cart);
+	QUANTITY = q;
+	SUMMARYMARY = s;}
+   UPDATE();}
+function REMOVEITEM(CART_item) {
+	var a = CART.indexOf(CART_item);
+	def_price.splice(a, 1);   
+	CART.splice(a, 1);
+	localstorage.set("CART",	CART);
+   UPDATE();}
+function GETPIZZA() {
+    return CART;}
+functionUPDATE() {
+    localstorage.set("CART", CART);
 	localstorage.set("price", def_price);
-	localstorage.set("quan", quan);
-	localstorage.set("sum", sum);
-	$platform.find(".count-items").text(quan);
-	$platform.find(".money").text(sum);
+	localstorage.set("QUANTITY", QUANTITY);
+	localstorage.set("SUMMARYMARY", SUMMARYMARY);
+	$platform.find(".count-items").text(QUANTITY);
+	$platform.find(".money").text(SUMMARYMARY);
 	$platform.find(".clearbtn").click(function(){
-		if(Cart.length != 0){
-		sum = 0;
-		quan = 0;
-		Cart.forEach(function(ob){
+		if(CART.length != 0){
+		SUMMARYMARY = 0;
+		QUANTITY = 0;
+		CART.forEach(function(ob){
 			ob.quantity =0;
-			if(ob.size == 'big_size'){
-				ob.pizza.big_size.price = def_price[Cart.indexOf(ob)];
-			}else if(ob.size == 'small_size'){
-				ob.pizza.small_size.price = def_price[Cart.indexOf(ob)];}
-			removeFromCart(ob);});}
+			if(ob.size=='Big'){
+				ob.pizza.Big.price = def_price[CART.indexOf(ob)];
+			}else if(ob.size=='Small'){
+				ob.pizza.Small.price = def_price[CART.indexOf(ob)];}
+			REMOVEITEM(ob);});}
 		localstorage.reset();
 		 location.reload();});
-	//Очищаємо старі піци в кошику
-	$cart.html("");
-    //Онволення однієї піци
-    function showOnePizzaInCart(cart_item) {
-        var html_code = Templates.PizzaCart_OneItem(cart_item);
+	$CART.html("");
+    function showOnePizzaInCART(CART_item) {
+        var html_code = Templates.PizzaCART_OneItem(CART_item);
         var $node = $(html_code);
         $node.find(".plus").click(function(){
-            //Збільшуємо кількість замовлених піц
-            cart_item.quantity += 1;
-			++quan;
-		if(cart_item.size == 'big_size'){
-			cart_item.pizza.big_size.price = cart_item.pizza.big_size.price/(cart_item.quantity-1) * cart_item.quantity;
-			sum = sum + cart_item.pizza.big_size.price/(cart_item.quantity);
-		}else if(cart_item.size == 'small_size'){
-			cart_item.pizza.small_size.price = cart_item.pizza.small_size.price/(cart_item.quantity-1) * cart_item.quantity;
-			sum = sum + cart_item.pizza.small_size.price/(cart_item.quantity);
+            CART_item.quantity += 1;
+			++QUANTITY;
+		if(CART_item.size=='Big'){
+			CART_item.pizza.Big.price = CART_item.pizza.Big.price/(CART_item.quantity-1) * CART_item.quantity;
+			SUMMARYMARY = SUMMARYMARY + CART_item.pizza.Big.price/(CART_item.quantity);
+		}else if(CART_item.size=='Small'){
+			CART_item.pizza.Small.price = CART_item.pizza.Small.price/(CART_item.quantity-1) * CART_item.quantity;
+			SUMMARY = SUMMARY + CART_item.pizza.Small.price/(CART_item.quantity);
 		} 
-            //Оновлюємо відображення
-            updateCart();});
+           UPDATE();});
 		$node.find(".cancel").click(function(){
-			if(cart_item.size == 'big_size'){
-			sum = sum - cart_item.pizza.big_size.price;
-			cart_item.pizza.big_size.price = def_price[Cart.indexOf(cart_item)];
-				console.log("ind" + Cart.indexOf(cart_item));
-		}else if(cart_item.size == 'small_size'){
-			sum = sum - cart_item.pizza.small_size.price;
-			cart_item.pizza.small_size.price = def_price[Cart.indexOf(cart_item)];}
-			var e = cart_item.quantity;
-            removeFromCart(cart_item);
-			quan = quan - e;
-			updateCart();});
+			if(CART_item.size == 'Big'){
+			SUMMARY = SUMMARY - CART_item.pizza.Big.price;
+			CART_item.pizza.Big.price = def_price[CART.indexOf(CART_item)];
+				console.log("ind" + CART.indexOf(CART_item));
+		}else if(CART_item.size == 'Small'){
+			SUMMARY = SUMMARY - CART_item.pizza.Small.price;
+			CART_item.pizza.Small.price = def_price[CART.indexOf(CART_item)];}
+			var e = CART_item.quantity;
+            REMOVEITEM(CART_item);
+			QUANTITY = QUANTITY - e;
+			updateCART();});
 		$node.find(".minus").click(function(){
-			if(cart_item.quantity == 1){
-				if(cart_item.size == 'big_size'){
-			sum = sum - cart_item.pizza.big_size.price;
-			cart_item.pizza.big_size.price = def_price[Cart.indexOf(cart_item)];
-				console.log("ind" + Cart.indexOf(cart_item));
-		}else if(cart_item.size == 'small_size'){
-			sum = sum - cart_item.pizza.small_size.price;
-			cart_item.pizza.small_size.price = def_price[Cart.indexOf(cart_item)];}
-				removeFromCart(cart_item);
-				quan = quan - 1;
-				updateCart();
-			}else if(cart_item.quantity > 1){
-				if(cart_item.size == 'big_size'){
-			sum = sum - cart_item.pizza.big_size.price/(cart_item.quantity);
-			cart_item.pizza.big_size.price = cart_item.pizza.big_size.price - cart_item.pizza.big_size.price/(cart_item.quantity);
-		}else if(cart_item.size == 'small_size'){
-			sum = sum - cart_item.pizza.small_size.price/(cart_item.quantity);
-			cart_item.pizza.small_size.price = cart_item.pizza.small_size.price - cart_item.pizza.small_size.price/cart_item.quantity;}
-				cart_item.quantity -= 1;
-				quan = quan - 1;
-				updateCart();}});
-		$cart.append($node);}
-    Cart.forEach(showOnePizzaInCart);}
+			if(CART_item.quantity == 1){
+				if(CART_item.size=='Big'){
+			SUMMARY = SUMMARY - CART_item.pizza.Big.price;
+			CART_item.pizza.Big.price = def_price[CART.indexOf(CART_item)];
+				console.log("ind" + CART.indexOf(CART_item));
+		}else if(CART_item.size=='Small'){
+			SUMMARY = SUMMARY - CART_item.pizza.Small.price;
+			CART_item.pizza.Small.price = def_price[CART.indexOf(CART_item)];}
+				REMOVEITEM(CART_item);
+				QUANTITY = QUANTITY - 1;
+				updateCART();
+			}else if(CART_item.quantity > 1){
+				if(CART_item.size=='Big'){
+			SUMMARY = SUMMARY - CART_item.pizza.Big.price/(CART_item.quantity);
+			CART_item.pizza.Big.price = CART_item.pizza.Big.price - CART_item.pizza.Big.price/(CART_item.quantity);
+		}else if(CART_item.size=='Small'){
+			SUMMARY = SUMMARY - CART_item.pizza.Small.price/(CART_item.quantity);
+			CART_item.pizza.Small.price = CART_item.pizza.Small.price - CART_item.pizza.Small.price/CART_item.quantity;}
+				CART_item.quantity -= 1;
+				QUANTITY = QUANTITY - 1;
+				updateCART();}});
+		$CART.append($node);}
+    CART.forEach(showOnePizzaInCART);}
 $("#send-data").click(function(){
-		  console.log("order is ",Cart);
-		  API.createOrder(Cart, function(){
+		  console.log("order is ",CART);
+		  API.createOrder(CART, function(){
 			  console.log("Data sent.");});});
-exports.removeFromCart = removeFromCart;
-exports.addToCart = addToCart;
-exports.getPizzaInCart = getPizzaInCart;
-exports.getSum = getSum;
-exports.initialiseCart = initialiseCart;
-exports.PizzaSize = PizzaSize;
+exports.REMOVEITEM = REMOVEITEM;
+exports.GETPIZZA = GETPIZZA;
+exports.getSUMMARY = getSUMMARY;
+exports.INITIALIZE = INITIALIZE;
+exports.ADDITEMS = ADDITEMS;
+exports.SIZE = SIZE;
